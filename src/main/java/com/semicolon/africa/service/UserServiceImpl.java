@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AddUserResponse register(AddUserRequest userRequest) {
-        //validateEmail(userRequest.getEmail());
+        validateEmail(userRequest.getEmail());
         User user = new User();
         user.setFirstName(userRequest.getFirstName());
         user.setLastName(userRequest.getLastName());
@@ -34,12 +34,12 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
-//    private void validateEmail(String email) throws UserAlreadyExistExceptions {
-//        User user = userRepository.findByEmail(email);
-//        if (user != null) {
-//            throw new UserAlreadyExistExceptions("Email already exist");
-//        }
-//    }
+    private void validateEmail(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user != null) {
+            throw new UserAlreadyExistExceptions("Email already exist");
+        }
+    }
 
     @Override
     public UserLoginResponse login(UserLoginRequest userLoginRequest) {
